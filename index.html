@@ -10,12 +10,15 @@
             width: 100%;
             height: 300px;
             font-family: monospace;
+            border: 1px solid #ddd;
+            padding: 10px;
         }
 
         #output {
             margin-top: 20px;
             background-color: #f4f4f4;
             padding: 10px;
+            border: 1px solid #ddd;
         }
     </style>
 </head>
@@ -23,7 +26,11 @@
 <body>
 
     <h2>Python Kod Çalıştırıcı</h2>
-    <textarea id="editor" placeholder="Buraya Python kodunu yaz..."></textarea>
+    <textarea id="editor" placeholder="Buraya Python kodunu yaz...">a = 10
+b = 22
+c = a + b
+print("Cavab:", c)
+    </textarea>
     <br>
     <button onclick="runCode()">Çalıştır</button>
 
@@ -36,15 +43,18 @@
         async function runCode() {
             const code = document.getElementById("editor").value;
 
-            const response = await fetch("http://127.0.0.1:5000/run", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ code: code })
-            });
+            try {
+                const response = await fetch("http://127.0.0.1:5000/run", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ code: code })
+                });
 
-            const result = await response.json();
-
-            document.getElementById("result").textContent = result.error || result.output;
+                const result = await response.json();
+                document.getElementById("result").textContent = result.error || result.output;
+            } catch (error) {
+                document.getElementById("result").textContent = "Bir hata oluştu: " + error.message;
+            }
         }
     </script>
 
