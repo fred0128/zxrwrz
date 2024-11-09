@@ -36,7 +36,6 @@
         async function runCode() {
             const code = document.getElementById("editor").value;
 
-            // Backend’e kodu gönderiyoruz
             const response = await fetch("http://127.0.0.1:5000/run", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
@@ -45,7 +44,6 @@
 
             const result = await response.json();
 
-            // Sonucu ekranda gösteriyoruz
             document.getElementById("result").textContent = result.error || result.output;
         }
     </script>
