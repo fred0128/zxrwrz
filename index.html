@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Python Web Editor</title>
+    <style>
+        #editor {
+            width: 100%;
+            height: 300px;
+            font-family: monospace;
+        }
+
+        #output {
+            margin-top: 20px;
+            background-color: #f4f4f4;
+            padding: 10px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h2>Python Kod Çalıştırıcı</h2>
+    <textarea id="editor" placeholder="Buraya Python kodunu yaz..."></textarea>
+    <br>
+    <button onclick="runCode()">Çalıştır</button>
+
+    <div id="output">
+        <h3>Çıktı:</h3>
+        <pre id="result"></pre>
+    </div>
+
+    <script>
+        async function runCode() {
+            const code = document.getElementById("editor").value;
+
+            // Backend’e kodu gönderiyoruz
+            const response = await fetch("http://127.0.0.1:5000/run", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ code: code })
+            });
+
+            const result = await response.json();
+
+            // Sonucu ekranda gösteriyoruz
+            document.getElementById("result").textContent = result.error || result.output;
+        }
+    </script>
+
+</body>
+
+</html>
