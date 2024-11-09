@@ -4,7 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Python Web Editor</title>
+    <link rel="stylesheet" href="style.css">
+    <title>Python Compiler</title>
     <style>
         #editor {
             width: 100%;
@@ -25,18 +26,17 @@
 
 <body>
 
-    <h2>Python Kod Çalıştırıcı</h2>
-    <textarea id="editor" placeholder="Buraya Python kodunu yaz...">a = 10
+    <h2>Python compiler</h2>
+    <textarea id="editor" placeholder="Add your code...">a = 10
 b = 22
 c = a + b
 print("Cavab:", c)
-print("All done!")
     </textarea>
     <br>
-    <button onclick="runCode()">Çalıştır</button>
+    <button onclick="runCode()">Run</button>
 
     <div id="output">
-        <h3>Çıktı:</h3>
+        <h3>Result:</h3>
         <pre id="result"></pre>
     </div>
 
@@ -54,7 +54,7 @@ print("All done!")
                 const result = await response.json();
                 document.getElementById("result").textContent = result.error || result.output;
             } catch (error) {
-                document.getElementById("result").textContent = "Bir hata oluştu: " + error.message;
+                document.getElementById("result").textContent = "An error occured: " + error.message;
             }
         }
     </script>
